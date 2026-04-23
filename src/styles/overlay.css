@@ -1,0 +1,261 @@
+.ruler-no-scroll {
+  overflow: hidden !important;
+  padding-right: 15px;
+}
+
+#ruler-extension-root {
+  --stats-bg-dark: rgba(15, 23, 42, 0.95);
+  --stats-bg-light: rgba(255, 255, 255, 0.95);
+  --stats-text-dark: #22d3ee;
+  --stats-text-light: #0f172a;
+  --stats-border-dark: #334155;
+  --stats-border-light: #e2e8f0;
+  --input-bg-dark: #1e293b;
+  --input-bg-light: #f1f5f9;
+}
+#ruler-extension-root,
+#ruler-extension-root *,
+#ruler-extension-root *::before,
+#ruler-extension-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#ruler-extension-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  pointer-events: auto;
+  font-family: sans-serif;
+}
+#ruler-extension-root .measure-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
+  z-index: 1;
+}
+#ruler-extension-root .measure-box {
+  position: absolute;
+  z-index: 10;
+  border: 1px solid #007bff;
+  background: rgba(0, 123, 255, 0.1);
+  cursor: move;
+}
+#ruler-extension-root .measure-box .measure-badge {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  background: #007bff;
+  color: white;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+#ruler-extension-root .measure-box .handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border: 1px solid #007bff;
+  border-radius: 50%;
+  z-index: 20;
+}
+#ruler-extension-root .measure-box .handle-tl {
+  top: -4px;
+  left: -4px;
+  cursor: nwse-resize;
+}
+#ruler-extension-root .measure-box .handle-tr {
+  top: -4px;
+  right: -4px;
+  cursor: nesw-resize;
+}
+#ruler-extension-root .measure-box .handle-bl {
+  bottom: -4px;
+  left: -4px;
+  cursor: nesw-resize;
+}
+#ruler-extension-root .measure-box .handle-br {
+  bottom: -4px;
+  right: -4px;
+  cursor: nwse-resize;
+}
+#ruler-extension-root .measure-box .handle-t {
+  top: -4px;
+  left: calc(50% - 4px);
+  cursor: ns-resize;
+}
+#ruler-extension-root .measure-box .handle-b {
+  bottom: -4px;
+  left: calc(50% - 4px);
+  cursor: ns-resize;
+}
+#ruler-extension-root .measure-box .handle-l {
+  top: calc(50% - 4px);
+  left: -4px;
+  cursor: ew-resize;
+}
+#ruler-extension-root .measure-box .handle-r {
+  top: calc(50% - 4px);
+  right: -4px;
+  cursor: ew-resize;
+}
+#ruler-extension-root .measure-stats {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2147483647;
+  min-width: 160px;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: grab;
+  transition: opacity 0.3s, transform 0.3s;
+  overscroll-behavior: contain;
+}
+#ruler-extension-root .measure-stats input[type=number] {
+  overscroll-behavior: contain;
+}
+#ruler-extension-root .measure-stats.dark-mode {
+  background: var(--stats-bg-dark);
+  color: var(--stats-text-dark);
+  border: 1px solid var(--stats-border-dark);
+}
+#ruler-extension-root .measure-stats.dark-mode .stat-input {
+  background: var(--input-bg-dark);
+  color: var(--stats-text-dark);
+  border-color: var(--stats-border-dark);
+}
+#ruler-extension-root .measure-stats.dark-mode .btn-theme {
+  color: #22d3ee;
+}
+#ruler-extension-root .measure-stats.light-mode {
+  background: var(--stats-bg-light);
+  color: var(--stats-text-light);
+  border: 1px solid var(--stats-border-light);
+}
+#ruler-extension-root .measure-stats.light-mode .stat-input {
+  background: var(--input-bg-light);
+  color: var(--stats-text-light);
+  border-color: var(--stats-border-light);
+}
+#ruler-extension-root .measure-stats.light-mode .btn-theme {
+  color: #f59e0b;
+}
+#ruler-extension-root .measure-stats .stats-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  padding-bottom: 8px;
+}
+#ruler-extension-root .measure-stats .stats-toolbar .brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+}
+#ruler-extension-root .measure-stats .stats-toolbar .brand-wrapper .ext-icon {
+  color: currentColor;
+}
+#ruler-extension-root .measure-stats .stats-toolbar .brand-wrapper .version-tag {
+  font-size: 9px;
+  font-family: monospace;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.15);
+  letter-spacing: 0.5px;
+}
+#ruler-extension-root .measure-stats .stats-toolbar .actions-wrapper {
+  display: flex;
+  gap: 6px;
+}
+#ruler-extension-root .measure-stats .text-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+#ruler-extension-root .measure-stats .stat-input {
+  width: 80px;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  border: 1px solid transparent;
+  text-align: right;
+  outline: none;
+  transition: all 0.2s;
+}
+#ruler-extension-root .measure-stats .stat-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+#ruler-extension-root .measure-stats .stat-input::-webkit-inner-spin-button, #ruler-extension-root .measure-stats .stat-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#ruler-extension-root .flex-row {
+  display: flex;
+  flex-direction: row;
+}
+#ruler-extension-root .flex-col {
+  display: flex;
+  flex-direction: column;
+}
+#ruler-extension-root .items-center {
+  align-items: center;
+}
+#ruler-extension-root .justify-between {
+  justify-content: space-between;
+}
+#ruler-extension-root .gap-2 {
+  gap: 8px;
+}
+#ruler-extension-root .gap-4 {
+  gap: 16px;
+}
+#ruler-extension-root .mb-2 {
+  margin-bottom: 8px;
+}
+#ruler-extension-root .mt-1 {
+  margin-top: 4px;
+}
+#ruler-extension-root .space-y-3 > * + * {
+  margin-top: 12px;
+}
+#ruler-extension-root .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+#ruler-extension-root .btn-icon:hover {
+  background: rgba(128, 128, 128, 0.1);
+  border-color: currentColor;
+}
+#ruler-extension-root .btn-icon.btn-close {
+  color: #ef4444;
+}
+#ruler-extension-root .btn-icon.btn-close:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+#ruler-extension-root .cursor-grabbing {
+  cursor: grabbing !important;
+}/*# sourceMappingURL=overlay.css.map */
