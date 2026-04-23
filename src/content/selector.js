@@ -15,11 +15,29 @@ const Selector = {
 	},
 
 	update(rect) {
+		const { x, y, w, h } = rect;
+
+		this.box.style.left = `${x}px`;
+		this.box.style.top = `${y}px`;
+		this.box.style.width = `${w}px`;
+		this.box.style.height = `${h}px`;
 		this.box.style.display = 'block';
-		this.box.style.left = rect.x + 'px';
-		this.box.style.top = rect.y + 'px';
-		this.box.style.width = rect.w + 'px';
-		this.box.style.height = rect.h + 'px';
-		this.badge.innerText = `${rect.w}px × ${rect.h}px`;
+
+		this.badge.textContent = `${Math.round(w)} × ${Math.round(h)} px`;
+
+		const atTop = y < 30;
+		const atLeft = x < 5;
+
+		if (atTop) {
+			this.box.classList.add('is-top-edge');
+		} else {
+			this.box.classList.remove('is-top-edge');
+		}
+
+		if (atLeft) {
+			this.box.classList.add('is-left-edge');
+		} else {
+			this.box.classList.remove('is-left-edge');
+		}
 	}
 };

@@ -45,10 +45,10 @@ const StatsBox = {
 				</div>
 
 				<div class="actions-wrapper">
-					<button class="btn-icon btn-theme" title="Chế độ Sáng/Tối">
+					<button class="btn-icon btn-theme" title="Light/Dark Mode">
 						<i data-lucide="${isLight ? 'sun' : 'moon'}"></i>
 					</button>
-					<button class="btn-icon btn-close" title="Tắt Extension">
+					<button class="btn-icon btn-close" title="Turn Off">
 						<i data-lucide="circle-power"></i>
 					</button>
 				</div>

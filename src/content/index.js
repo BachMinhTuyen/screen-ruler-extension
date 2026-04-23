@@ -24,6 +24,7 @@ chrome.runtime.onMessage.addListener((request) => {
 function setupEvents(overlayRoot) {
 	overlayRoot.addEventListener('mousedown', (e) => {
 		const target = e.target;
+		target.style.background = 'none';
 
 		// If you click on the Stats Box or Input inside it -> Skip, do not start drawing.
 		if (target.closest('.measure-stats')) {
@@ -75,6 +76,7 @@ function setupEvents(overlayRoot) {
 			Resizer.applyResize(Selector.box, activeHandle, e.clientX, e.clientY);
 			const b = Selector.box.getBoundingClientRect();
 			currentRect = { x: b.left, y: b.top, w: b.width, h: b.height };
+			Selector.update(currentRect);
 		}
 		else if (isMoving) {
 			// MOVE: Keep W and H the same, only change X and Y
@@ -87,6 +89,7 @@ function setupEvents(overlayRoot) {
 			// Use the current parameters to update the Stats table without changing the size.
 			const b = Selector.box.getBoundingClientRect();
 			currentRect = { x: newX, y: newY, w: b.width, h: b.height };
+			Selector.update(currentRect);
 		}
 
 		if (currentRect) {

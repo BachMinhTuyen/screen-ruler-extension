@@ -34,15 +34,19 @@
 #ruler-extension-root .measure-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   cursor: crosshair;
   z-index: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 #ruler-extension-root .measure-box {
   position: absolute;
   z-index: 10;
-  border: 1px solid #007bff;
-  background: rgba(0, 123, 255, 0.1);
+  border: none;
+  background: transparent;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
   cursor: move;
 }
 #ruler-extension-root .measure-box .measure-badge {
@@ -55,6 +59,26 @@
   font-size: 11px;
   border-radius: 3px;
   white-space: nowrap;
+  pointer-events: none;
+  transition: top 0.2s ease;
+}
+#ruler-extension-root .measure-box.is-top-edge.is-left-edge .measure-badge {
+  top: auto;
+  left: auto;
+  bottom: -25px;
+  right: 5px;
+}
+#ruler-extension-root .measure-box.is-top-edge:not(.is-left-edge) .measure-badge {
+  top: auto;
+  left: 5px;
+  bottom: -25px;
+  right: auto;
+}
+#ruler-extension-root .measure-box.is-left-edge:not(.is-top-edge) .measure-badge {
+  top: 5px;
+  left: auto;
+  bottom: auto;
+  right: -80px;
 }
 #ruler-extension-root .measure-box .handle {
   position: absolute;
@@ -64,6 +88,7 @@
   border: 1px solid #007bff;
   border-radius: 50%;
   z-index: 20;
+  opacity: 0.8;
 }
 #ruler-extension-root .measure-box .handle-tl {
   top: -4px;
