@@ -2,7 +2,11 @@ chrome.action.onClicked.addListener(async (tab) => {
 	try {
 		await chrome.tabs.sendMessage(tab.id, { type: "PING" });
 
-		await chrome.tabs.sendMessage(tab.id, { type: "TOGGLE_RULER" });
+		const response = await chrome.tabs.sendMessage(tab.id, { type: "TOGGLE_RULER" });
+
+		if (response) {
+			updateBadge(tab.id, response.status === "on");
+		}
 
 	} catch (err) {
 		await chrome.scripting.insertCSS({
@@ -26,5 +30,24 @@ chrome.action.onClicked.addListener(async (tab) => {
 		setTimeout(() => {
 			chrome.tabs.sendMessage(tab.id, { type: "TOGGLE_RULER" });
 		}, 50);
+		updateBadge(tab.id, true);
 	}
 });
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+	if (message.type === "RULER_CLOSED_MANUALLY" && sender.tab) {
+		updateBadge(sender.tab.id, false);
+	}
+});
+
+function updateBadge(tabId, isOn) {
+	chrome.action.setBadgeText({
+		tabId: tabId,
+		text: isOn ? "ON" : ""
+	});
+
+	chrome.action.setBadgeBackgroundColor({
+		tabId: tabId,
+		color: isOn ? "#10b981" : "#000000"
+	});
+}

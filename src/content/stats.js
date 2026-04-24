@@ -124,6 +124,8 @@ const StatsBox = {
 			this.destroy();
 			document.body.classList.remove('ruler-no-scroll');
 			if (typeof OverlayManager !== 'undefined') OverlayManager.destroy();
+
+			chrome.runtime.sendMessage({ type: "RULER_CLOSED_MANUALLY" });
 		};
 	},
 

@@ -12,19 +12,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	}
 
 	if (request.type === "TOGGLE_RULER") {
+		let status = "off";
 		if (OverlayManager.element) {
 			StatsBox.destroy();
 			OverlayManager.destroy();
 			document.body.classList.remove('ruler-no-scroll');
-			sendResponse({ status: "off" });
+			status = "off";
 		} else {
 			const overlay = OverlayManager.create();
 			Selector.init(overlay);
 			StatsBox.init(overlay);
 			setupEvents(overlay);
 			document.body.classList.add('ruler-no-scroll');
-			sendResponse({ status: "on" });
+			status = "on";
 		}
+		sendResponse({ status: status });
 		return false;
 	}
 
