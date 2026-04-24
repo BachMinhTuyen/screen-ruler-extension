@@ -8,6 +8,14 @@
 - **Manual Adjustments:** Fine-tune coordinates and dimensions via input fields or by using the mouse wheel.
 - **Dark/Light Mode:** Modern Stats Box UI that adapts to your preference.
 
+## Security & Privacy
+
+This extension is built with a security-first approach, following the Senior Developer best practices:
+- **Principle of Least Privilege:** Unlike most rulers, this extension does not track your browsing history or read data on every website you visit. It only requests access to the current tab when you explicitly click the extension icon (activeTab permission).
+- **Just-in-Time Injection:** No scripts are running in the background while you browse. Code is only injected and executed when the tool is activated, significantly reducing RAM usage and improving browser performance.
+- **No Data Collection:** All measurement data and user preferences are stored locally on your machine using chrome.storage.local. We do not have any external servers and never collect your personal information.
+- **Anti-Fingerprinting:** Utilizes use_dynamic_url for web-accessible resources, preventing malicious websites from detecting the presence of the extension.
+
 ## Installation Guide (Chrome Developer Mode)
 
 Follow these steps to install and run the extension locally on your Chrome browser:
