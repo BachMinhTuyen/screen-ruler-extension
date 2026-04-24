@@ -16,14 +16,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		if (OverlayManager.element) {
 			StatsBox.destroy();
 			OverlayManager.destroy();
-			document.body.classList.remove('ruler-no-scroll');
 			status = "off";
 		} else {
 			const overlay = OverlayManager.create();
 			Selector.init(overlay);
 			StatsBox.init(overlay);
 			setupEvents(overlay);
-			document.body.classList.add('ruler-no-scroll');
 			status = "on";
 		}
 		sendResponse({ status: status });
