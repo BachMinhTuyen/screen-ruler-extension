@@ -9,11 +9,19 @@ const StatsBox = {
 	boundMouseMove: null,
 	boundMouseUp: null,
 
-	init(container) {
+	async init(container) {
 		this.destroy();
+
+		try {
+			const result = await chrome.storage.local.get(['isLightMode']);
+			this.isLightMode = result.isLightMode !== undefined ? result.isLightMode : false;
+		} catch (e) {
+			console.error("Storage read error:", e);
+		}
 
 		this.element = document.createElement('div');
 		container.appendChild(this.element);
+
 		this.updateTheme();
 
 		this.setupDragging();
@@ -101,9 +109,12 @@ const StatsBox = {
 
 	setupControls() {
 		const themeBtn = this.element.querySelector('.btn-theme');
-		themeBtn.onclick = (e) => {
+		themeBtn.onclick = async (e) => {
 			e.stopPropagation();
 			this.isLightMode = !this.isLightMode;
+
+			await chrome.storage.local.set({ isLightMode: this.isLightMode });
+
 			this.updateTheme();
 		};
 
