@@ -58,7 +58,7 @@ function setupEvents(overlayRoot) {
 			startX = e.clientX;
 			startY = e.clientY;
 
-			// Reset box về vị trí click đầu tiên
+			// Reset the box to its first click position.
 			Selector.update({ x: startX, y: startY, w: 0, h: 0 });
 		}
 	});
