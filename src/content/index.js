@@ -5,20 +5,30 @@ let startX, startY;
 let offsetX, offsetY;
 let activeHandle = null;
 
-chrome.runtime.onMessage.addListener((request) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	if (request.type === "PING") {
+		sendResponse({ status: "alive" });
+		return false;
+	}
+
 	if (request.type === "TOGGLE_RULER") {
 		if (OverlayManager.element) {
 			StatsBox.destroy();
 			OverlayManager.destroy();
 			document.body.classList.remove('ruler-no-scroll');
+			sendResponse({ status: "off" });
 		} else {
 			const overlay = OverlayManager.create();
 			Selector.init(overlay);
 			StatsBox.init(overlay);
 			setupEvents(overlay);
 			document.body.classList.add('ruler-no-scroll');
+			sendResponse({ status: "on" });
 		}
+		return false;
 	}
+
+	return false;
 });
 
 function setupEvents(overlayRoot) {

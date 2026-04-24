@@ -22,25 +22,6 @@
 	"background": {
 		"service_worker": "src/background.js"
 	},
-	"content_scripts": [
-		{
-			"matches": [
-				"<all_urls>"
-			],
-			"css": [
-				"src/styles/overlay.css"
-			],
-			"js": [
-				"src/libs/lucide.js",
-				"src/content/utils.js",
-				"src/content/overlay.js",
-				"src/content/selector.js",
-				"src/content/resizer.js",
-				"src/content/stats.js",
-				"src/content/index.js"
-			]
-		}
-	],
 	"web_accessible_resources": [
 		{
 			"resources": [
@@ -48,7 +29,8 @@
 			],
 			"matches": [
 				"<all_urls>"
-			]
+			],
+			"use_dynamic_url": true
 		}
 	]
 }
